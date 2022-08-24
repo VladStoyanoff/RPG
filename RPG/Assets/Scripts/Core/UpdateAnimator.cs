@@ -30,6 +30,7 @@ namespace RPG.Core
 
         public void AttackAnimation()
         {
+            animator.ResetTrigger("stopAttack");
             animator.SetTrigger("attack");
         }
 
