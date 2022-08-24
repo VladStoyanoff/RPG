@@ -33,6 +33,11 @@ namespace RPG.Core
             animator.SetTrigger("attack");
         }
 
+        public void Die()
+        {
+            animator.SetTrigger("die");
+        }
+
         // Animation Event
         void Hit()
         {
