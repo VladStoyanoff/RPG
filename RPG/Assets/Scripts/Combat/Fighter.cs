@@ -61,7 +61,6 @@ namespace RPG.Combat
             target = null;
         }
 
-
         public Health GetSelectedTarget() => target;
         public float GetWeaponDamage() => weaponDamage;
     }
