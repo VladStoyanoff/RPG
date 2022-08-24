@@ -12,11 +12,13 @@ namespace RPG.Combat
         float timeSinceLastAttack = 0f;
 
         Movement movementScript;
-        Transform target;
+        UpdateAnimator updateAnimatorScript;
+        Health target;
 
         void Start()
         {
             movementScript = GetComponent<Movement>();
+            updateAnimatorScript = GetComponentInChildren<UpdateAnimator>();
         }
 
         void Update()
@@ -29,34 +31,38 @@ namespace RPG.Combat
         public void Attack(CombatTarget combatTarget) 
         {
             GetComponent<ActionScheduler>().StartAction(this);
-            target = combatTarget.transform;
+            target = combatTarget.GetComponent<Health>();
         }
 
         void UpdateMoveToAttack()
         {
             if (target == null) return;
-            movementScript.MoveToTarget(target);
-            bool isInRange = Vector3.Distance(transform.position, target.position) < attackingRange;
+            movementScript.MoveToTarget(target.gameObject);
+            bool isInRange = Vector3.Distance(transform.position, target.transform.position) < attackingRange;
             if (!isInRange) return;
             movementScript.Cancel();
+
+            if (target.GetIsDeadBool()) return;
             AttackBehaviour();
         }
 
         void AttackBehaviour()
         {
-            // This will trigger the Hit() animation event inside UpdateAnimator.cs
+            transform.LookAt(target.transform);
             if (timeSinceLastAttack < timeBetweenAttacks) return;
-            GetComponentInChildren<UpdateAnimator>().AttackAnimation();
+            // This will trigger the Hit() animation event inside UpdateAnimator.cs
+            updateAnimatorScript.AttackAnimation();
             timeSinceLastAttack = 0;
         }
 
-            public void Cancel()
+        public void Cancel()
         {
+            updateAnimatorScript.StopAttackIfInProcess();
             target = null;
         }
 
 
-        public Transform GetSelectedTarget() => target;
+        public Health GetSelectedTarget() => target;
         public float GetWeaponDamage() => weaponDamage;
     }
 }

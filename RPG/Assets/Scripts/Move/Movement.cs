@@ -14,9 +14,9 @@ namespace RPG.Move
             navMeshAgent = GetComponent<NavMeshAgent>();
         }
         
-        public void MoveToTarget(Transform target) 
+        public void MoveToTarget(GameObject target) 
         {
-            navMeshAgent.destination = target.position;
+            navMeshAgent.destination = target.transform.position;
             ActivateNavMeshAgent();
         }
 

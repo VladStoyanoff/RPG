@@ -38,10 +38,16 @@ namespace RPG.Core
             animator.SetTrigger("die");
         }
 
+        public void StopAttackIfInProcess()
+        {
+            animator.SetTrigger("stopAttack");
+        }
+
         // Animation Event
         void Hit()
         {
-            fighterScript.GetSelectedTarget().GetComponent<Health>().TakeDamage(fighterScript.GetWeaponDamage());
+            if (fighterScript.GetSelectedTarget() == null) return;
+            fighterScript.GetSelectedTarget().TakeDamage(fighterScript.GetWeaponDamage());
         }
     }
 }
