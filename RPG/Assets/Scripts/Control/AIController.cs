@@ -2,17 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AIController : MonoBehaviour
+namespace RPG.Control 
 {
-    // Start is called before the first frame update
-    void Start()
+    public class AIController : MonoBehaviour
     {
-        
-    }
+        [SerializeField] float chaseDistance = 5f;
+        GameObject player;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+
+        void Start()
+        {
+            player = GameObject.FindWithTag("Player");
+        }
+        void Update()
+        {
+            var playerIsInRange = Vector3.Distance(transform.position, player.transform.position) < chaseDistance;
+            if (!playerIsInRange) return;
+            Debug.Log(gameObject.name + "is chasing");
+        }
     }
 }
