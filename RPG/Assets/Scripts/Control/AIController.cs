@@ -30,5 +30,11 @@ namespace RPG.Control
             if (playerIsInRange) fighterScript.Attack(player);
             if (!playerIsInRange) fighterScript.Cancel();
         }
+
+        void OnDrawGizmosSelected()
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(transform.position, chaseDistance);
+        }
     }
 }
