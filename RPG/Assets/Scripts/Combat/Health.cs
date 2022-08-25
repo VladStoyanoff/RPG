@@ -15,14 +15,13 @@ namespace RPG.Combat
         {
             health = Mathf.Max(health - damage, 0);
             if (health > 0) return;
-            GetComponentInChildren<UpdateAnimator>().Die();
             HandleDeath();
-
         }
 
         void HandleDeath()
         {
             isDead = true;
+            GetComponentInChildren<UpdateAnimator>().Die();
             GetComponent<BoxCollider>().enabled = false;
             GetComponent<NavMeshAgent>().enabled = false;
         }

@@ -11,7 +11,7 @@ namespace RPG.Combat
         [SerializeField] float attackingRange = 2f;
         [SerializeField] float timeBetweenAttacks = 1f;
         [SerializeField] float weaponDamage = 20f;
-        float timeSinceLastAttack = 0f;
+        float timeSinceLastAttack = Mathf.Infinity;
 
         [Header("Scripts")]
         Movement movementScript;
@@ -40,6 +40,8 @@ namespace RPG.Combat
         void UpdateMoveToAttack()
         {
             if (healthScriptOfTarget == null) return;
+            if (GetComponent<Health>().GetIsDeadBool()) return;
+            if (healthScriptOfTarget.GetIsDeadBool()) return;
             movementScript.MoveToTarget(healthScriptOfTarget.gameObject);
             var isInRange = Vector3.Distance(transform.position, healthScriptOfTarget.transform.position) < attackingRange;
             if (!isInRange) return;
@@ -50,17 +52,11 @@ namespace RPG.Combat
 
         void AttackBehaviour()
         {
-            if (healthScriptOfTarget.GetIsDeadBool()) return;
             transform.LookAt(healthScriptOfTarget.transform);
             if (timeSinceLastAttack < timeBetweenAttacks) return;
-            updateAnimatorScript.AttackAnimation();
-            Invoke("InflictDamage", .5f);
-            timeSinceLastAttack = 0;
-        }
-
-        void InflictDamage()
-        {
             healthScriptOfTarget.TakeDamage(GetWeaponDamage());
+            updateAnimatorScript.AttackAnimation();
+            timeSinceLastAttack = 0;
         }
 
         public void Cancel()

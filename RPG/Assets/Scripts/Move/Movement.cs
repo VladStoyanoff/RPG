@@ -16,6 +16,7 @@ namespace RPG.Move
         
         public void MoveToTarget(GameObject target) 
         {
+            if (!navMeshAgent.enabled) return;
             navMeshAgent.destination = target.transform.position;
             ActivateNavMeshAgent();
         }
@@ -23,12 +24,14 @@ namespace RPG.Move
         public void Move(Vector3 destination)
         {
             GetComponent<ActionScheduler>().StartAction(this);
+            if (!navMeshAgent.enabled) return;
             navMeshAgent.destination = destination;
             ActivateNavMeshAgent();
         }
 
         public void Cancel()
         {
+            if (!navMeshAgent.enabled) return;
             navMeshAgent.isStopped = true;
         }
 

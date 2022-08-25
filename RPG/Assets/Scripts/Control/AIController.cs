@@ -20,6 +20,12 @@ namespace RPG.Control
         }
         void Update()
         {
+            UpdateCombat();
+
+        }
+
+        void UpdateCombat()
+        {
             var playerIsInRange = Vector3.Distance(transform.position, player.transform.position) < chaseDistance;
             if (playerIsInRange) fighterScript.Attack(player);
             if (!playerIsInRange) fighterScript.Cancel();

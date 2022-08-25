@@ -13,6 +13,7 @@ namespace RPG.Control
 
         void Update() 
         {
+            if (GetComponent<Health>().GetIsDeadBool()) return;
             if (UpdateCombat()) return;
             if (UpdateControlMovement()) return;
             Debug.Log("Nothing to do");
