@@ -34,7 +34,7 @@ namespace RPG.Control
                 var target = hit.transform.GetComponent<CombatTarget>();
                 if (target == null) continue;
                 if (!Input.GetMouseButton(1)) return false;
-                GetComponent<Fighter>().Attack(target);
+                GetComponent<Fighter>().Attack(target.gameObject);
                 return true;
             }
             return false;

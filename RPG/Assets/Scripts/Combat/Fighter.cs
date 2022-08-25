@@ -31,7 +31,7 @@ namespace RPG.Combat
             UpdateMoveToAttack();
         }
 
-        public void Attack(CombatTarget combatTarget) 
+        public void Attack(GameObject combatTarget)
         {
             GetComponent<ActionScheduler>().StartAction(this);
             healthScriptOfTarget = combatTarget.GetComponent<Health>();
@@ -53,7 +53,6 @@ namespace RPG.Combat
             if (healthScriptOfTarget.GetIsDeadBool()) return;
             transform.LookAt(healthScriptOfTarget.transform);
             if (timeSinceLastAttack < timeBetweenAttacks) return;
-            // This will trigger the Hit() animation event inside UpdateAnimator.cs
             updateAnimatorScript.AttackAnimation();
             Invoke("InflictDamage", .5f);
             timeSinceLastAttack = 0;
