@@ -55,7 +55,13 @@ namespace RPG.Combat
             if (timeSinceLastAttack < timeBetweenAttacks) return;
             // This will trigger the Hit() animation event inside UpdateAnimator.cs
             updateAnimatorScript.AttackAnimation();
+            Invoke("InflictDamage", .5f);
             timeSinceLastAttack = 0;
+        }
+
+        void InflictDamage()
+        {
+            healthScriptOfTarget.TakeDamage(GetWeaponDamage());
         }
 
         public void Cancel()

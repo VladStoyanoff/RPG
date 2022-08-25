@@ -1,18 +1,15 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
-using RPG.Combat;
 
 namespace RPG.Animation
 {
     public class UpdateAnimator : MonoBehaviour
     {
         Animator animator;
-        Fighter fighterScript;
 
         void Start()
         {
             animator = GetComponent<Animator>();
-            fighterScript = GetComponentInParent<Fighter>();
         }
 
         void Update()
@@ -42,13 +39,6 @@ namespace RPG.Animation
         public void StopAttackIfInProcess()
         {
             animator.SetTrigger("stopAttack");
-        }
-
-        // Animation Event
-        void Hit()
-        {
-            if (fighterScript.GetSelectedTarget() == null) return;
-            fighterScript.GetSelectedTarget().TakeDamage(fighterScript.GetWeaponDamage());
         }
     }
 }
