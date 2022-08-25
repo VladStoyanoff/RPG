@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using RPG.Combat;
+using RPG.Move;
 
 namespace RPG.Control 
 {
@@ -11,11 +12,15 @@ namespace RPG.Control
         GameObject player;
         Fighter fighterScript;
 
+        Vector3 guardPosition;
+
 
         void Start()
         {
             player = GameObject.FindWithTag("Player");
             fighterScript = GetComponent<Fighter>();
+
+            guardPosition = transform.position;
 
         }
         void Update()
@@ -28,7 +33,11 @@ namespace RPG.Control
         {
             var playerIsInRange = Vector3.Distance(transform.position, player.transform.position) < chaseDistance;
             if (playerIsInRange) fighterScript.Attack(player);
-            if (!playerIsInRange) fighterScript.Cancel();
+            if (!playerIsInRange)
+            {
+                fighterScript.Cancel();
+                GetComponent<Movement>().Move(guardPosition);
+            }
         }
 
         void OnDrawGizmosSelected()
