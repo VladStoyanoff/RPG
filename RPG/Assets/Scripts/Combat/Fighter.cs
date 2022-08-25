@@ -1,19 +1,22 @@
 using UnityEngine;
 using RPG.Move;
 using RPG.Core;
+using RPG.Animation;
 
 namespace RPG.Combat 
 {
     public class Fighter : MonoBehaviour, IAction
     {
+        [Header("Attack")]
         [SerializeField] float attackingRange = 2f;
         [SerializeField] float timeBetweenAttacks = 1f;
         [SerializeField] float weaponDamage = 20f;
         float timeSinceLastAttack = 0f;
 
+        [Header("Scripts")]
         Movement movementScript;
         UpdateAnimator updateAnimatorScript;
-        Health target;
+        Health healthScriptOfTarget;
 
         void Start()
         {
@@ -31,24 +34,24 @@ namespace RPG.Combat
         public void Attack(CombatTarget combatTarget) 
         {
             GetComponent<ActionScheduler>().StartAction(this);
-            target = combatTarget.GetComponent<Health>();
+            healthScriptOfTarget = combatTarget.GetComponent<Health>();
         }
 
         void UpdateMoveToAttack()
         {
-            if (target == null) return;
-            movementScript.MoveToTarget(target.gameObject);
-            bool isInRange = Vector3.Distance(transform.position, target.transform.position) < attackingRange;
+            if (healthScriptOfTarget == null) return;
+            movementScript.MoveToTarget(healthScriptOfTarget.gameObject);
+            bool isInRange = Vector3.Distance(transform.position, healthScriptOfTarget.transform.position) < attackingRange;
             if (!isInRange) return;
             movementScript.Cancel();
 
-            if (target.GetIsDeadBool()) return;
             AttackBehaviour();
         }
 
         void AttackBehaviour()
         {
-            transform.LookAt(target.transform);
+            if (healthScriptOfTarget.GetIsDeadBool()) return;
+            transform.LookAt(healthScriptOfTarget.transform);
             if (timeSinceLastAttack < timeBetweenAttacks) return;
             // This will trigger the Hit() animation event inside UpdateAnimator.cs
             updateAnimatorScript.AttackAnimation();
@@ -58,10 +61,10 @@ namespace RPG.Combat
         public void Cancel()
         {
             updateAnimatorScript.StopAttackIfInProcess();
-            target = null;
+            healthScriptOfTarget = null;
         }
 
-        public Health GetSelectedTarget() => target;
+        public Health GetSelectedTarget() => healthScriptOfTarget;
         public float GetWeaponDamage() => weaponDamage;
     }
 }
