@@ -31,7 +31,7 @@ namespace RPG.Combat
             UpdateMoveToAttack();
         }
 
-        public void Attack(GameObject combatTarget)
+        public void StartAttackAction(GameObject combatTarget)
         {
             GetComponent<ActionScheduler>().StartAction(this);
             healthScriptOfTarget = combatTarget.GetComponent<Health>();
@@ -42,12 +42,19 @@ namespace RPG.Combat
             if (healthScriptOfTarget == null) return;
             if (GetComponent<Health>().GetIsDeadBool()) return;
             if (healthScriptOfTarget.GetIsDeadBool()) return;
+
+            MoveToTargetBehaviour();
+            AttackBehaviour();
+        }
+
+        void MoveToTargetBehaviour()
+        {
             movementScript.MoveToTarget(healthScriptOfTarget.gameObject);
             var isInRange = Vector3.Distance(transform.position, healthScriptOfTarget.transform.position) < attackingRange;
-            if (!isInRange) return;
-            movementScript.Cancel();
-
-            AttackBehaviour();
+            if (isInRange)
+            {
+                movementScript.Cancel();
+            }
         }
 
         void AttackBehaviour()
