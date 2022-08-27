@@ -12,25 +12,22 @@ namespace RPG.Control
         [SerializeField] float chaseDistance = 5f;
         [SerializeField] float suspicionTime = 5f;
         [SerializeField] PatrolPath patrolPath;
-        [SerializeField] float waypointTolerance = 1f;
+        [SerializeField] float guardingPositionWidth = 1f;
         GameObject player;
         Fighter fighterScript;
         Movement movementScript;
 
-        Vector3 guardPosition;
         float timeSinceLastSeenPlayer = Mathf.Infinity;
-        int currentWaypointIndex = 0;
-
+        int currentGuardingPositionIndex = 0;
+        float timeOnGuardingPositionPassed = 0f;
 
         void Start()
         {
             player = GameObject.FindWithTag("Player");
             fighterScript = GetComponent<Fighter>();
             movementScript = GetComponent<Movement>();
-
-            guardPosition = transform.position;
-
         }
+
         void Update()
         {
             UpdateCombat();
@@ -67,33 +64,26 @@ namespace RPG.Control
         void PatrolBehaviour()
         {
             if (timeSinceLastSeenPlayer < suspicionTime) return;
-            var nextPosition = guardPosition;
+
             movementScript.ActivateNavMeshAgent();
-            if (patrolPath != null)
-            {
-                if (AtWaypoint())
-                {
-                    CycleWaypoint();
-                }
-                nextPosition = GetCurrentWaypoint();
-            }
-            movementScript.Move(nextPosition);
+            movementScript.Move(GetCurrentGuardingPosition());
+            if (!AtGuardingPosition()) return;
+            var timeOnGuardingPosition = 3;
+            timeOnGuardingPositionPassed += Time.deltaTime;
+            if (timeOnGuardingPositionPassed < timeOnGuardingPosition) return;
+            timeOnGuardingPositionPassed = 0;
+            currentGuardingPositionIndex = patrolPath.GetNextGuardingPositionIndex(currentGuardingPositionIndex);
         }
 
-        bool AtWaypoint()
+        bool AtGuardingPosition()
         {
-            var distanceToWaypoint = Vector3.Distance(transform.position, GetCurrentWaypoint());
-            return distanceToWaypoint < waypointTolerance;
+            var distanceToGuardingPosition = Vector3.Distance(transform.position, GetCurrentGuardingPosition());
+            return distanceToGuardingPosition < guardingPositionWidth;
         }
 
-        void CycleWaypoint()
+        Vector3 GetCurrentGuardingPosition()
         {
-            currentWaypointIndex = patrolPath.GetNextIndex(currentWaypointIndex);
-        }
-
-        Vector3 GetCurrentWaypoint()
-        {
-            return patrolPath.GetWaypoint(currentWaypointIndex);
+            return patrolPath.GetGuardingPosition(currentGuardingPositionIndex);
         }
 
         void OnDrawGizmosSelected()
