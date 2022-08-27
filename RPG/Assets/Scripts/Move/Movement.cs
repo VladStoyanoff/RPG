@@ -35,7 +35,7 @@ namespace RPG.Move
             navMeshAgent.isStopped = true;
         }
 
-        void ActivateNavMeshAgent()
+        public void ActivateNavMeshAgent()
         {
             navMeshAgent.isStopped = false;
         }

@@ -15,13 +15,17 @@ namespace RPG.Combat
 
         [Header("Scripts")]
         Movement movementScript;
+        Health healthScriptOfAttacker;
         UpdateAnimator updateAnimatorScript;
         Health healthScriptOfTarget;
+
+        bool isInRangeOfPlayer;
 
         void Start()
         {
             movementScript = GetComponent<Movement>();
             updateAnimatorScript = GetComponentInChildren<UpdateAnimator>();
+            healthScriptOfAttacker = GetComponent<Health>();
         }
 
         void Update()
@@ -40,7 +44,8 @@ namespace RPG.Combat
         void UpdateMoveToAttack()
         {
             if (healthScriptOfTarget == null) return;
-            if (GetComponent<Health>().GetIsDeadBool()) return;
+            if (healthScriptOfTarget == healthScriptOfAttacker) return;
+            if (healthScriptOfAttacker.GetIsDeadBool()) return;
             if (healthScriptOfTarget.GetIsDeadBool()) return;
 
             MoveToTargetBehaviour();
@@ -50,8 +55,8 @@ namespace RPG.Combat
         void MoveToTargetBehaviour()
         {
             movementScript.MoveToTarget(healthScriptOfTarget.gameObject);
-            var isInRange = Vector3.Distance(transform.position, healthScriptOfTarget.transform.position) < attackingRange;
-            if (isInRange)
+            isInRangeOfPlayer = Vector3.Distance(transform.position, healthScriptOfTarget.transform.position) < attackingRange;
+            if (isInRangeOfPlayer)
             {
                 movementScript.Cancel();
             }
@@ -59,6 +64,7 @@ namespace RPG.Combat
 
         void AttackBehaviour()
         {
+            if (!isInRangeOfPlayer) return;
             transform.LookAt(healthScriptOfTarget.transform);
             if (timeSinceLastAttack < timeBetweenAttacks) return;
             healthScriptOfTarget.TakeDamage(GetWeaponDamage());
