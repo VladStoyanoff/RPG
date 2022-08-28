@@ -23,7 +23,7 @@ namespace RPG.Control
         {
             if (!Input.GetMouseButton(1)) return false;
             if (!Physics.Raycast(GetMouseRay(), out RaycastHit hit, float.MaxValue, layerMask)) return false;
-            GetComponent<Movement>().Move(hit.point);
+            GetComponent<Movement>().Move(hit.point, 1f);
             return true;
         }
 

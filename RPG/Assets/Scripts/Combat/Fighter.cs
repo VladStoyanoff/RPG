@@ -19,7 +19,7 @@ namespace RPG.Combat
         UpdateAnimator updateAnimatorScript;
         Health healthScriptOfTarget;
 
-        bool isInRangeOfPlayer;
+        bool isInRangeOfTarget;
 
         void Start()
         {
@@ -54,17 +54,22 @@ namespace RPG.Combat
 
         void MoveToTargetBehaviour()
         {
-            movementScript.MoveToTarget(healthScriptOfTarget.gameObject);
-            isInRangeOfPlayer = Vector3.Distance(transform.position, healthScriptOfTarget.transform.position) < attackingRange;
-            if (isInRangeOfPlayer)
+            if (gameObject.tag == "Player")
             {
-                movementScript.Cancel();
+                movementScript.MoveToTarget(healthScriptOfTarget.gameObject, 1f);
             }
+            else if (gameObject.tag == "Enemy")
+            {
+                movementScript.MoveToTarget(healthScriptOfTarget.gameObject, 0.8f);
+            }
+            isInRangeOfTarget = Vector3.Distance(transform.position, healthScriptOfTarget.transform.position) < attackingRange;
+            if (!isInRangeOfTarget) return;
+            movementScript.Cancel();
         }
 
         void AttackBehaviour()
         {
-            if (!isInRangeOfPlayer) return;
+            if (!isInRangeOfTarget) return;
             transform.LookAt(healthScriptOfTarget.transform);
             if (timeSinceLastAttack < timeBetweenAttacks) return;
             healthScriptOfTarget.TakeDamage(GetWeaponDamage());

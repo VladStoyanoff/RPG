@@ -4,6 +4,7 @@ using UnityEngine;
 using RPG.Combat;
 using RPG.Move;
 using System;
+using UnityEngine.AI;
 
 namespace RPG.Control 
 {
@@ -13,6 +14,7 @@ namespace RPG.Control
         [SerializeField] float suspicionTime = 5f;
         [SerializeField] PatrolPath patrolPath;
         [SerializeField] float guardingPositionWidth = 1f;
+        [SerializeField] float patrollingSpeedFraction = .4f;
         GameObject player;
         Fighter fighterScript;
         Movement movementScript;
@@ -66,7 +68,7 @@ namespace RPG.Control
             if (timeSinceLastSeenPlayer < suspicionTime) return;
 
             movementScript.ActivateNavMeshAgent();
-            movementScript.Move(GetCurrentGuardingPosition());
+            movementScript.Move(GetCurrentGuardingPosition(), patrollingSpeedFraction);
             if (!AtGuardingPosition()) return;
             var timeOnGuardingPosition = 3;
             timeOnGuardingPositionPassed += Time.deltaTime;

@@ -24,6 +24,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 151268606818153939, guid: 1ad5b1dfb8ebae542adc30e9ced1276a,
+        type: 3}
+      propertyPath: health
+      value: 180
+      objectReference: {fileID: 0}
     - target: {fileID: 1403097228642617250, guid: 1ad5b1dfb8ebae542adc30e9ced1276a,
         type: 3}
       propertyPath: m_RootBone
@@ -587,7 +592,7 @@ PrefabInstance:
     - target: {fileID: 5337480383046914946, guid: 1ad5b1dfb8ebae542adc30e9ced1276a,
         type: 3}
       propertyPath: m_Name
-      value: Enemy
+      value: Enemy Boss
       objectReference: {fileID: 0}
     - target: {fileID: 5337480383046914946, guid: 1ad5b1dfb8ebae542adc30e9ced1276a,
         type: 3}
