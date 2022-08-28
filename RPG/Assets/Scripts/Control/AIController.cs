@@ -14,7 +14,9 @@ namespace RPG.Control
         [SerializeField] float suspicionTime = 5f;
         [SerializeField] PatrolPath patrolPath;
         [SerializeField] float guardingPositionWidth = 1f;
+        [Range(0,1)]
         [SerializeField] float patrollingSpeedFraction = .4f;
+        [SerializeField] float timeOnGuardingPosition = 3f;
         GameObject player;
         Fighter fighterScript;
         Movement movementScript;
@@ -67,10 +69,8 @@ namespace RPG.Control
         {
             if (timeSinceLastSeenPlayer < suspicionTime) return;
 
-            movementScript.ActivateNavMeshAgent();
             movementScript.Move(GetCurrentGuardingPosition(), patrollingSpeedFraction);
             if (!AtGuardingPosition()) return;
-            var timeOnGuardingPosition = 3;
             timeOnGuardingPositionPassed += Time.deltaTime;
             if (timeOnGuardingPositionPassed < timeOnGuardingPosition) return;
             timeOnGuardingPositionPassed = 0;
