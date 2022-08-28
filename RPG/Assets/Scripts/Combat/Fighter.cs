@@ -81,6 +81,7 @@ namespace RPG.Combat
         {
             updateAnimatorScript.StopAttackIfInProcess();
             healthScriptOfTarget = null;
+            GetComponent<Movement>().Cancel();
         }
 
         public Health GetSelectedTarget() => healthScriptOfTarget;
