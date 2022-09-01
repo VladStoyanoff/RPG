@@ -5,12 +5,17 @@ using UnityEngine.AI;
 
 namespace RPG.SceneManagement
 {
-    public class Portal : MonoBehaviour 
+    public class Portal : MonoBehaviour
     {
-        public static Portal Instance { get; private set; }
+        enum DestinationIdentifier 
+        {
+            A, B, C, D, E
+        }
+
 
         [SerializeField] int sceneToLoad = -1;
         [SerializeField] Transform spawnPoint;
+        [SerializeField] DestinationIdentifier destination;
 
         void OnTriggerEnter(Collider other)
         {
@@ -39,6 +44,7 @@ namespace RPG.SceneManagement
             foreach (Portal portal in FindObjectsOfType<Portal>())
             {
                 if (portal == this) continue;
+                if (portal.destination != destination) continue;
                 return portal;
             }
             return null;
