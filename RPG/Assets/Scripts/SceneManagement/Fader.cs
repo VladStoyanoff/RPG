@@ -7,7 +7,6 @@ namespace RPG.SceneManagement
     public class Fader : MonoBehaviour
     {
         CanvasGroup canvasGroup;
-        float fadingTime = 3f;
 
         void Start()
         {
