@@ -25,6 +25,7 @@ namespace RPG.SceneManagement
 
         IEnumerator Transition()
         {
+            var fader = FindObjectOfType<Fader>();
             DontDestroyOnLoad(gameObject);
             yield return SceneManager.LoadSceneAsync(sceneToLoad);
             var otherPortal = GetOtherPortal();
