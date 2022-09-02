@@ -44,6 +44,7 @@ namespace RPG.Move
             navMeshAgent.isStopped = false;
         }
 
+        #region Saving
         public object CaptureState() => new SerializableVector3(transform.position);
 
         public void RestoreState(object state)
@@ -53,5 +54,6 @@ namespace RPG.Move
             transform.position = position.ToVector();
             navMeshAgent.enabled = true;
         }
+        #endregion
     }
 }

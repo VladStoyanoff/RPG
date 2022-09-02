@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using RPG.Animation;
+using RPG.Saving;
 
 namespace RPG.Combat
 {
-    public class Health : MonoBehaviour
+    public class Health : MonoBehaviour, ISaveable
     {
         [SerializeField] float health = 100f;
         bool isDead;
@@ -26,7 +27,18 @@ namespace RPG.Combat
             GetComponent<NavMeshAgent>().enabled = false;
         }
 
-        public bool GetIsDeadBool() => isDead; 
+        public bool GetIsDeadBool() => isDead;
+
+        #region Saving
+        public object CaptureState() => health;
+
+        public void RestoreState(object state)
+        {
+            health = (float)state;
+            if (health > 0) return;
+            HandleDeath();
+        }
+        #endregion
     }
 }
 
