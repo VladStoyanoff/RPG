@@ -9,6 +9,12 @@ namespace RPG.SceneManagement
     {
         const string defaultSaveFile = "save";
         [SerializeField] float fadeInTime = 5f;
+        SavingSystem savingSystemScript;
+
+        void Awake()
+        {
+            savingSystemScript = GetComponent<SavingSystem>();
+        }
 
         IEnumerator Start()
         {
@@ -22,23 +28,13 @@ namespace RPG.SceneManagement
         {
             if (Input.GetKeyDown(KeyCode.L))
             {
-                Load();
+                savingSystemScript.Load(defaultSaveFile);
             }
 
             if (Input.GetKeyDown(KeyCode.S))
             {
-                Save();
+                savingSystemScript.Save(defaultSaveFile);
             }
-        }
-
-        public void Load()
-        {
-            GetComponent<SavingSystem>().Load(defaultSaveFile);
-        }
-
-        public void Save()
-        {
-            GetComponent<SavingSystem>().Save(defaultSaveFile);
         }
     }
 }
