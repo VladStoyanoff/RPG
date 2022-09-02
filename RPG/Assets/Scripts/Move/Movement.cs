@@ -11,7 +11,7 @@ namespace RPG.Move
         NavMeshAgent navMeshAgent;
         [SerializeField] float maxSpeed = 6f;
 
-        void Start()
+        void Awake()
         {
             navMeshAgent = GetComponent<NavMeshAgent>();
         }
@@ -45,14 +45,29 @@ namespace RPG.Move
         }
 
         #region Saving
-        public object CaptureState() => new SerializableVector3(transform.position);
+
+        [System.Serializable]
+        struct MoverSaveData 
+        {
+            public SerializableVector3 position;
+            public SerializableVector3 rotation;
+        }
+
+        public object CaptureState()
+        {
+            MoverSaveData data = new MoverSaveData();
+            data.position = new SerializableVector3(transform.position);
+            data.rotation = new SerializableVector3(transform.eulerAngles);
+
+            return data;
+        }
 
         public void RestoreState(object state)
         {
-            SerializableVector3 position = (SerializableVector3)state;
-            Start();
+            MoverSaveData data = (MoverSaveData)state;
             DisableNavMeshAgent();
-            transform.position = position.ToVector();
+            transform.position = data.position.ToVector();
+            transform.eulerAngles = data.rotation.ToVector();
             ActivateNavMeshAgent();
         }
         #endregion

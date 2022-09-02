@@ -22,7 +22,7 @@ namespace RPG.SceneManagement
 
         SavingWrapper savingWrapperScript;
 
-        void Start()
+        void Awake()
         {
             savingWrapperScript = FindObjectOfType<SavingWrapper>();
         }
@@ -47,6 +47,8 @@ namespace RPG.SceneManagement
 
             var otherPortal = GetOtherPortal();
             UpdatePlayerPosition(otherPortal);
+
+            savingWrapperScript.Save();
 
             yield return fader.FadeIn(fadingInTime);
 
