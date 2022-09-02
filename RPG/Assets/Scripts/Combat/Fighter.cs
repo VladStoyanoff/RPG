@@ -64,7 +64,7 @@ namespace RPG.Combat
             }
             isInRangeOfTarget = Vector3.Distance(transform.position, healthScriptOfTarget.transform.position) < attackingRange;
             if (!isInRangeOfTarget) return;
-            movementScript.Cancel();
+            movementScript.DisableNavMeshAgent();
         }
 
         void AttackBehaviour()
@@ -77,11 +77,11 @@ namespace RPG.Combat
             timeSinceLastAttack = 0;
         }
 
-        public void Cancel()
+        public void DisableNavMeshAgent()
         {
             updateAnimatorScript.StopAttackIfInProcess();
             healthScriptOfTarget = null;
-            GetComponent<Movement>().Cancel();
+            GetComponent<Movement>().DisableNavMeshAgent();
         }
 
         public Health GetSelectedTarget() => healthScriptOfTarget;

@@ -1,10 +1,11 @@
 using UnityEngine;
 using UnityEngine.AI;
 using RPG.Core;
+using RPG.Saving;
 
 namespace RPG.Move 
 {
-    public class Movement : MonoBehaviour, IAction
+    public class Movement : MonoBehaviour, IAction, ISaveable
     {
 
         NavMeshAgent navMeshAgent;
@@ -32,7 +33,7 @@ namespace RPG.Move
             ActivateNavMeshAgent();
         }
 
-        public void Cancel()
+        public void DisableNavMeshAgent()
         {
             if (!navMeshAgent.enabled) return;
             navMeshAgent.isStopped = true;
@@ -41,6 +42,16 @@ namespace RPG.Move
         public void ActivateNavMeshAgent()
         {
             navMeshAgent.isStopped = false;
+        }
+
+        public object CaptureState() => new SerializableVector3(transform.position);
+
+        public void RestoreState(object state)
+        {
+            SerializableVector3 position = (SerializableVector3)state;
+            navMeshAgent.enabled = false;
+            transform.position = position.ToVector();
+            navMeshAgent.enabled = true;
         }
     }
 }
