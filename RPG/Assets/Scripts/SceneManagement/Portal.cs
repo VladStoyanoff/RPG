@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.AI;
+using RPG.Saving;
 
 namespace RPG.SceneManagement
 {
@@ -19,6 +20,13 @@ namespace RPG.SceneManagement
         [SerializeField] float fadingOutTime = 2f;
         [SerializeField] float fadingInTime = 1f;
 
+        SavingWrapper savingWrapperScript;
+
+        void Start()
+        {
+            savingWrapperScript = FindObjectOfType<SavingWrapper>();
+        }
+
         void OnTriggerEnter(Collider other)
         {
             if (other.tag == "Player" == false) return;
@@ -32,17 +40,20 @@ namespace RPG.SceneManagement
             var fader = FindObjectOfType<Fader>();
 
             yield return fader.FadeOut(fadingOutTime);
+            savingWrapperScript.Save();
             yield return SceneManager.LoadSceneAsync(sceneToLoad);
 
+            savingWrapperScript.Load();
+
             var otherPortal = GetOtherPortal();
-            UpdatePlayer(otherPortal);
+            UpdatePlayerPosition(otherPortal);
 
             yield return fader.FadeIn(fadingInTime);
 
             Destroy(gameObject);
         }
 
-        void UpdatePlayer(Portal otherPortal)
+        void UpdatePlayerPosition(Portal otherPortal)
         {
             var player = GameObject.FindWithTag("Player");
             player.GetComponent<NavMeshAgent>().Warp(otherPortal.spawnPoint.position);

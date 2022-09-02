@@ -2323,7 +2323,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1456380805}
-  m_LocalRotation: {x: 0.2165298, y: -0.2669431, z: 0.061684564, w: 0.9370439}
+  m_LocalRotation: {x: 0.21652977, y: -0.26694313, z: 0.061684564, w: 0.9370439}
   m_LocalPosition: {x: -0.58838797, y: 12.2, z: 11.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -5708,7 +5708,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Path: {fileID: 547464557}
-  m_PathPosition: 0
+  m_PathPosition: 1
   m_PositionUnits: 0
   m_PathOffset: {x: 6.452816, y: 5.8, z: -5.5787168}
   m_XDamping: 0
@@ -5911,7 +5911,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2019887919}
-  m_LocalRotation: {x: 0.22746432, y: -0.47975782, z: 0.13032967, w: 0.8373211}
+  m_LocalRotation: {x: 0.5897283, y: -0.3208133, z: 0.2748732, w: 0.6882908}
   m_LocalPosition: {x: -18.719997, y: 12.35, z: 27.910002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -6017,13 +6017,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 786263593651964557, guid: 83e160c6cdf36fa4195caca87cdbaddc,
         type: 3}
+      propertyPath: m_BoundingSphereOverride.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 786263593651964557, guid: 83e160c6cdf36fa4195caca87cdbaddc,
+        type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: 3.2562119e+10
+      value: -7.449894
       objectReference: {fileID: 0}
     - target: {fileID: 786263593651964557, guid: 83e160c6cdf36fa4195caca87cdbaddc,
         type: 3}
       propertyPath: m_BoundingSphereOverride.z
-      value: 6.73e-43
+      value: 4.5905e-41
       objectReference: {fileID: 0}
     - target: {fileID: 1094948077363743173, guid: 83e160c6cdf36fa4195caca87cdbaddc,
         type: 3}
@@ -6034,7 +6039,7 @@ PrefabInstance:
     - target: {fileID: 2004530761246068191, guid: 83e160c6cdf36fa4195caca87cdbaddc,
         type: 3}
       propertyPath: uniqueIdentifier
-      value: 4e094711-9b3c-4f07-9bbf-98c5d05c5613
+      value: player
       objectReference: {fileID: 0}
     - target: {fileID: 6846984984706603597, guid: 83e160c6cdf36fa4195caca87cdbaddc,
         type: 3}
