@@ -8,7 +8,7 @@ namespace RPG.SceneManagement
     public class SavingWrapper : MonoBehaviour
     {
         const string defaultSaveFile = "save";
-        [SerializeField] float fadeInTime = 5f;
+        [SerializeField] float fadeInTime = 1f;
         SavingSystem savingSystemScript;
 
         void Awake()
@@ -26,14 +26,23 @@ namespace RPG.SceneManagement
 
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.L))
-            {
-                savingSystemScript.Load(defaultSaveFile);
-            }
+            Save();
+            Load();
+        }
 
+        public void Save()
+        {
             if (Input.GetKeyDown(KeyCode.S))
             {
                 savingSystemScript.Save(defaultSaveFile);
+            }
+        }
+
+        public void Load()
+        {
+            if (Input.GetKeyDown(KeyCode.L))
+            {
+                savingSystemScript.Load(defaultSaveFile);
             }
         }
     }
