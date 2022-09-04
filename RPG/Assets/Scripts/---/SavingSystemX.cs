@@ -17,8 +17,7 @@ namespace RPG.lol
             using (var stream = File.Open(path, FileMode.Create))
             {
                 var formatter = new BinaryFormatter();
-                var position = new SerializableVector3X(GetPlayerTransform().position);
-                formatter.Serialize(stream, position);
+                formatter.Serialize(stream, CaptureState());
             }
         }
 
@@ -29,31 +28,29 @@ namespace RPG.lol
             using (var stream = File.Open(path, FileMode.Open))
             {
                 var formatter = new BinaryFormatter();
-                var position = (SerializableVector3X)formatter.Deserialize(stream);
-                GetPlayerTransform().position = position.ToVector();
+                RestoreState(formatter.Deserialize(stream));
             }
         }
 
-        byte[] SerializeVector(Vector3 vector)
+        object CaptureState()
         {
-            // a float takes up 4 bytes
-            var vectorBytes = new byte[3 * 4];
-            BitConverter.GetBytes(vector.x).CopyTo(vectorBytes, 0);
-            BitConverter.GetBytes(vector.y).CopyTo(vectorBytes, 4);
-            BitConverter.GetBytes(vector.z).CopyTo(vectorBytes, 8);
-            return vectorBytes;
+            Dictionary<string, object> stateDict = new Dictionary<string, object>();
+            foreach(var saveableEntity in FindObjectsOfType<SaveableEntityX>())
+            {
+                stateDict[saveableEntity.GetUniqueIdentifier()] = saveableEntity.CaptureState();
+            }
+            return stateDict;
         }
 
-        Vector3 DeserializeVector(byte[] buffer)
+        void RestoreState(object state)
         {
-            var deserializedVector = new Vector3();
-            deserializedVector.x = BitConverter.ToSingle(buffer, 0);
-            deserializedVector.y = BitConverter.ToSingle(buffer, 4);
-            deserializedVector.z = BitConverter.ToSingle(buffer, 8);
-            return deserializedVector;
+            Dictionary<string, object> stateDict = (Dictionary<string, object>)state;
+            foreach (var saveableEntity in FindObjectsOfType<SaveableEntityX>())
+            {
+                saveableEntity.RestoreState(stateDict[saveableEntity.GetUniqueIdentifier()]);
+            }
         }
 
-        Transform GetPlayerTransform() => GameObject.FindWithTag("Player").transform;
         string GetPathFromSaveFile(string saveFile) => Path.Combine(Application.persistentDataPath, saveFile + ".sav");
     }
 }
