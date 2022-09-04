@@ -4,8 +4,10 @@ using UnityEngine;
 
 namespace RPG.lol 
 {
+    [ExecuteAlways]
     public class SaveableEntityX : MonoBehaviour
     {
+        [SerializeField] string uniqueIdentifier = "";
         public string GetUniqueIdentifier()
         {
             return "";
@@ -20,6 +22,12 @@ namespace RPG.lol
         public void RestoreState(object state)
         {
             Debug.Log("Restoring State for " + GetUniqueIdentifier());
+        }
+
+        public void Update()
+        {
+            if (Application.IsPlaying(gameObject)) return;
+            Debug.Log("Editing");
         }
     }
 }
