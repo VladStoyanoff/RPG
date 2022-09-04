@@ -5708,7 +5708,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Path: {fileID: 547464557}
-  m_PathPosition: 1
+  m_PathPosition: 0
   m_PositionUnits: 0
   m_PathOffset: {x: 6.452816, y: 5.8, z: -5.5787168}
   m_XDamping: 0
@@ -5911,7 +5911,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2019887919}
-  m_LocalRotation: {x: 0.58972824, y: -0.32081336, z: 0.27487323, w: 0.6882908}
+  m_LocalRotation: {x: 0.22746432, y: -0.47975782, z: 0.13032967, w: 0.8373211}
   m_LocalPosition: {x: -18.719997, y: 12.35, z: 27.910002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -6013,7 +6013,7 @@ PrefabInstance:
     - target: {fileID: 786263593651964557, guid: 83e160c6cdf36fa4195caca87cdbaddc,
         type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: 19.045883
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 786263593651964557, guid: 83e160c6cdf36fa4195caca87cdbaddc,
         type: 3}
@@ -6023,12 +6023,12 @@ PrefabInstance:
     - target: {fileID: 786263593651964557, guid: 83e160c6cdf36fa4195caca87cdbaddc,
         type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: 1.4772763e+16
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 786263593651964557, guid: 83e160c6cdf36fa4195caca87cdbaddc,
         type: 3}
       propertyPath: m_BoundingSphereOverride.z
-      value: 4.5904e-41
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1094948077363743173, guid: 83e160c6cdf36fa4195caca87cdbaddc,
         type: 3}

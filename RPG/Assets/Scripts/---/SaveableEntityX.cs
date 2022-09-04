@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 namespace RPG.lol 
@@ -23,11 +24,21 @@ namespace RPG.lol
         {
             Debug.Log("Restoring State for " + GetUniqueIdentifier());
         }
-
+#if UNITY_EDITOR
         public void Update()
         {
             if (Application.IsPlaying(gameObject)) return;
-            Debug.Log("Editing");
+            if (string.IsNullOrEmpty(gameObject.scene.path)) return;
+
+            var serializedObject = new SerializedObject(this);
+            var property = serializedObject.FindProperty("uniqueIdentifier");
+
+            if (property.stringValue == "")
+            {
+                property.stringValue = System.Guid.NewGuid().ToString();
+                serializedObject.ApplyModifiedProperties();
+            }
         }
+#endif
     }
 }
