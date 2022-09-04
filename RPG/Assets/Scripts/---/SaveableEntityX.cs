@@ -1,7 +1,9 @@
+using RPG.Core;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace RPG.lol 
 {
@@ -9,21 +11,32 @@ namespace RPG.lol
     public class SaveableEntityX : MonoBehaviour
     {
         [SerializeField] string uniqueIdentifier = "";
+        NavMeshAgent navMesh;
+
+        void Awake()
+        {
+            navMesh = GetComponent<NavMeshAgent>();
+        }
+
         public string GetUniqueIdentifier()
         {
-            return "";
+            return uniqueIdentifier;
         }
 
         public object CaptureState()
         {
-            Debug.Log("Capturing State for " + GetUniqueIdentifier());
-            return null;
+            return new SerializableVector3X(transform.position);
         }
 
         public void RestoreState(object state)
         {
-            Debug.Log("Restoring State for " + GetUniqueIdentifier());
+            var position = (SerializableVector3X)state;
+            navMesh.enabled = false;
+            transform.position = position.ToVector();
+            navMesh.enabled = true;
+            GetComponent<ActionScheduler>().CancelCurrentAction();
         }
+
 #if UNITY_EDITOR
         public void Update()
         {
