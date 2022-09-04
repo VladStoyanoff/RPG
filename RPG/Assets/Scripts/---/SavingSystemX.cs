@@ -9,7 +9,10 @@ namespace RPG.lol
     {
         public void Save(string saveFile)
         {
-            Debug.Log("Saving to " + GetPathFromSaveFile(saveFile));
+            var path = GetPathFromSaveFile(saveFile);
+            Debug.Log("Saving to " + path);
+            var stream = File.Open(path, FileMode.Create);
+            stream.Close();
         }
 
         public void Load(string saveFile)
