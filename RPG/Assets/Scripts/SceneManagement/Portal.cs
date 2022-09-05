@@ -40,15 +40,15 @@ namespace RPG.SceneManagement
             var fader = FindObjectOfType<Fader>();
 
             yield return fader.FadeOut(fadingOutTime);
-            savingWrapperScript.Save();
+            //savingWrapperScript.Save();
             yield return SceneManager.LoadSceneAsync(sceneToLoad);
 
-            savingWrapperScript.Load();
+            //savingWrapperScript.Load();
 
             var otherPortal = GetOtherPortal();
             UpdatePlayerPosition(otherPortal);
 
-            savingWrapperScript.Save();
+            //savingWrapperScript.Save();
 
             yield return fader.FadeIn(fadingInTime);
 

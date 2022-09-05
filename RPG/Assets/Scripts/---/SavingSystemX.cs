@@ -12,7 +12,10 @@ namespace RPG.lol
         #region SAVING
         public void Save(string saveFile)
         {
-            SaveFile(saveFile, CaptureState());
+            var path = GetPathFromSaveFile(saveFile);
+            Dictionary<string, object> state = LoadFile(saveFile);
+            CaptureState(state);
+            SaveFile(saveFile, state);
         }
 
         void SaveFile(string saveFile, Dictionary<string, object> state)
@@ -25,14 +28,12 @@ namespace RPG.lol
             }
         }
 
-        Dictionary<string, object> CaptureState()
+        void CaptureState(Dictionary<string, object> state)
         {
-            Dictionary<string, object> stateDict = new Dictionary<string, object>();
             foreach (var saveableEntity in FindObjectsOfType<SaveableEntityX>())
             {
-                stateDict[saveableEntity.GetUniqueIdentifier()] = saveableEntity.CaptureState();
+                state[saveableEntity.GetUniqueIdentifier()] = saveableEntity.CaptureState();
             }
-            return stateDict;
         }
         #endregion
 
@@ -46,13 +47,17 @@ namespace RPG.lol
         {
             foreach (var saveableEntity in FindObjectsOfType<SaveableEntityX>())
             {
-                saveableEntity.RestoreState(state[saveableEntity.GetUniqueIdentifier()]);
+                var uniqueId = saveableEntity.GetUniqueIdentifier();
+                if (state.ContainsKey(uniqueId) == false) return;
+                saveableEntity.RestoreState(state[uniqueId]);
             }
         }
 
         Dictionary<string, object> LoadFile(string saveFile)
         {
+
             var path = GetPathFromSaveFile(saveFile);
+            if (File.Exists(path) == false) return new Dictionary<string, object>();
             using (var stream = File.Open(path, FileMode.Open))
             {
                 var formatter = new BinaryFormatter();
