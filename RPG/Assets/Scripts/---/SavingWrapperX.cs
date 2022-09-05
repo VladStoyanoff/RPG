@@ -13,6 +13,11 @@ public class SavingWrapperX : MonoBehaviour
         savingSystemScriptX = GetComponent<SavingSystemX>();
     }
 
+    void Start()
+    {
+        Load();
+    }
+
     void Update()
     {
         Save();

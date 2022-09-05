@@ -12,7 +12,6 @@ namespace RPG.lol
         #region SAVING
         public void Save(string saveFile)
         {
-            var path = GetPathFromSaveFile(saveFile);
             Dictionary<string, object> state = LoadFile(saveFile);
             CaptureState(state);
             SaveFile(saveFile, state);
