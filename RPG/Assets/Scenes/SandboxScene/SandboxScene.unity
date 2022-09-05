@@ -1897,6 +1897,11 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0.71499026
       objectReference: {fileID: 0}
+    - target: {fileID: 8379455494870440064, guid: ef108249d56262146bff5dfae6386fbd,
+        type: 3}
+      propertyPath: uniqueIdentifier
+      value: b6cfa8b0-9344-402b-9c0d-60aaca633412
+      objectReference: {fileID: 0}
     - target: {fileID: 8559296502397812960, guid: ef108249d56262146bff5dfae6386fbd,
         type: 3}
       propertyPath: uniqueIdentifier
@@ -3773,6 +3778,11 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0.71499026
       objectReference: {fileID: 0}
+    - target: {fileID: 8379455494870440064, guid: ef108249d56262146bff5dfae6386fbd,
+        type: 3}
+      propertyPath: uniqueIdentifier
+      value: dea290e5-2b9d-435b-ae52-35f031afe345
+      objectReference: {fileID: 0}
     - target: {fileID: 8559296502397812960, guid: ef108249d56262146bff5dfae6386fbd,
         type: 3}
       propertyPath: uniqueIdentifier
@@ -5400,6 +5410,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: bfbe2e8b331e2cc42be1591f949c0e41, type: 2}
+    - target: {fileID: 8379455494870440064, guid: ef108249d56262146bff5dfae6386fbd,
+        type: 3}
+      propertyPath: uniqueIdentifier
+      value: 2c2bd112-e7a6-43d5-aaf3-5f78d8c17953
+      objectReference: {fileID: 0}
     - target: {fileID: 8559296502397812960, guid: ef108249d56262146bff5dfae6386fbd,
         type: 3}
       propertyPath: uniqueIdentifier
@@ -6036,6 +6051,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1620249843189221653, guid: ed53f5b575e63724aa50c82d29f0c32c,
         type: 3}
+    - target: {fileID: 1824224664989373887, guid: 83e160c6cdf36fa4195caca87cdbaddc,
+        type: 3}
+      propertyPath: uniqueIdentifier
+      value: ea9eda6f-0483-4df2-bb50-b7f43350b155
+      objectReference: {fileID: 0}
     - target: {fileID: 2004530761246068191, guid: 83e160c6cdf36fa4195caca87cdbaddc,
         type: 3}
       propertyPath: uniqueIdentifier
