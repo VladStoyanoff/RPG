@@ -1,42 +1,46 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using RPG.lol;
 
-public class SavingWrapperX : MonoBehaviour
+namespace RPG.lol 
 {
-    SavingSystemX savingSystemScriptX;
-    const string defaultSaveFile = "save";
-
-    void Awake()
+    public class SavingWrapperX : MonoBehaviour
     {
-        savingSystemScriptX = GetComponent<SavingSystemX>();
-    }
+        SavingSystemX savingSystemScriptX;
+        const string defaultSaveFile = "save";
 
-    void Start()
-    {
-        Load();
-    }
+        void Awake()
+        {
+            savingSystemScriptX = GetComponent<SavingSystemX>();
+        }
 
-    void Update()
-    {
-        Save();
-        Load();
-    }
+        void Start()
+        {
+            Load();
+        }
 
-    public void Save()
-    {
-        if (Input.GetKeyDown(KeyCode.S))
+        void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                Save();
+            }
+            if (Input.GetKeyDown(KeyCode.L))
+            {
+                Load();
+            }
+        }
+
+        public void Save()
         {
             savingSystemScriptX.Save(defaultSaveFile);
         }
-    }
 
-    public void Load()
-    {
-        if (Input.GetKeyDown(KeyCode.L))
+        public void Load()
         {
             savingSystemScriptX.Load(defaultSaveFile);
         }
     }
 }
+
+
