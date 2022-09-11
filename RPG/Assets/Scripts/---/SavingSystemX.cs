@@ -47,7 +47,7 @@ namespace RPG.lol
             foreach (var saveableEntity in FindObjectsOfType<SaveableEntityX>())
             {
                 var uniqueId = saveableEntity.GetUniqueIdentifier();
-                if (state.ContainsKey(uniqueId) == false) return;
+                if (state.ContainsKey(uniqueId) == false) continue;
                 saveableEntity.RestoreState(state[uniqueId]);
             }
         }

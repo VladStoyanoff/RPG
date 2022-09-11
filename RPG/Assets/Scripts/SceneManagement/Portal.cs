@@ -49,7 +49,7 @@ namespace RPG.SceneManagement
             var otherPortal = GetOtherPortal();
             UpdatePlayerPosition(otherPortal);
 
-            //savingWrapperScriptX.Save();
+            savingWrapperScriptX.Save();
 
             yield return fader.FadeIn(fadingInTime);
 

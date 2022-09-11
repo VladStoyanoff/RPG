@@ -1,4 +1,3 @@
-using RPG.Core;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -11,12 +10,6 @@ namespace RPG.lol
     public class SaveableEntityX : MonoBehaviour
     {
         [SerializeField] string uniqueIdentifier = "";
-        NavMeshAgent navMesh;
-
-        void Awake()
-        {
-            navMesh = GetComponent<NavMeshAgent>();
-        }
 
         public string GetUniqueIdentifier()
         {
@@ -25,16 +18,23 @@ namespace RPG.lol
 
         public object CaptureState()
         {
-            return new SerializableVector3X(transform.position);
+            var state = new Dictionary<string, object>();
+            foreach (ISaveable saveable in GetComponents<ISaveable>())
+            {
+                state[saveable.GetType().ToString()] = saveable.CaptureState();
+            }
+            return state;
         }
 
         public void RestoreState(object state)
         {
-            var position = (SerializableVector3X)state;
-            navMesh.enabled = false;
-            transform.position = position.ToVector();
-            navMesh.enabled = true;
-            GetComponent<ActionScheduler>().CancelCurrentAction();
+            var stateDict = (Dictionary<string, object>)state;
+            foreach (ISaveable saveable in GetComponents<ISaveable>())
+            {
+                var typeString = saveable.GetType().ToString();
+                if (stateDict.ContainsKey(typeString) == false) continue;
+                saveable.RestoreState(stateDict[typeString]);
+            }
         }
 
 #if UNITY_EDITOR
