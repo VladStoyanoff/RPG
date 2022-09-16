@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.AI;
 using RPG.Saving;
-using RPG.lol;
 
 namespace RPG.SceneManagement
 {
@@ -21,11 +20,11 @@ namespace RPG.SceneManagement
         [SerializeField] float fadingOutTime = 2f;
         [SerializeField] float fadingInTime = 1f;
 
-        SavingWrapperX savingWrapperScriptX;
+        SavingWrapper savingWrapperScript;
 
         void Awake()
         {
-            savingWrapperScriptX = FindObjectOfType<SavingWrapperX>();
+            savingWrapperScript = FindObjectOfType<SavingWrapper>();
         }
 
         void OnTriggerEnter(Collider other)
@@ -41,15 +40,15 @@ namespace RPG.SceneManagement
             var fader = FindObjectOfType<Fader>();
 
             yield return fader.FadeOut(fadingOutTime);
-            savingWrapperScriptX.Save();
+            savingWrapperScript.Save();
             yield return SceneManager.LoadSceneAsync(sceneToLoad);
 
-            savingWrapperScriptX.Load();
+            savingWrapperScript.Load();
 
             var otherPortal = GetOtherPortal();
             UpdatePlayerPosition(otherPortal);
 
-            savingWrapperScriptX.Save();
+            savingWrapperScript.Save();
 
             yield return fader.FadeIn(fadingInTime);
 

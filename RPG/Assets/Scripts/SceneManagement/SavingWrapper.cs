@@ -26,24 +26,25 @@ namespace RPG.SceneManagement
 
         void Update()
         {
-            Save();
-            Load();
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                Save();
+            }
+
+            if (Input.GetKeyDown(KeyCode.L))
+            {
+                Load();
+            }
         }
 
         public void Save()
         {
-            if (Input.GetKeyDown(KeyCode.S))
-            {
-                savingSystemScript.Save(defaultSaveFile);
-            }
+             savingSystemScript.Save(defaultSaveFile);
         }
 
         public void Load()
         {
-            if (Input.GetKeyDown(KeyCode.L))
-            {
-                savingSystemScript.Load(defaultSaveFile);
-            }
+             savingSystemScript.Load(defaultSaveFile);
         }
     }
 }

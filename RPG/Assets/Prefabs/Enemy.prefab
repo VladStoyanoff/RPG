@@ -16,8 +16,7 @@ MonoBehaviour:
   suspicionTime: 5
   patrolPath: {fileID: 0}
   guardingPositionWidth: 1
-  patrollingSpeedFraction: 0.4
-  timeOnGuardingPosition: 3
+  patrolSpeedFraction: 0.2
 --- !u!1001 &5564203463119207140
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -525,11 +524,6 @@ PrefabInstance:
       propertyPath: m_Bones.Array.data[48]
       value: 
       objectReference: {fileID: 6791649168633358722}
-    - target: {fileID: 4139313772433334884, guid: 1ad5b1dfb8ebae542adc30e9ced1276a,
-        type: 3}
-      propertyPath: uniqueIdentifier
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 5337480383046914941, guid: 1ad5b1dfb8ebae542adc30e9ced1276a,
         type: 3}
       propertyPath: m_RootOrder
