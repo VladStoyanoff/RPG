@@ -11,6 +11,10 @@ namespace RPG.Combat
         [SerializeField] float attackingRange = 2f;
         [SerializeField] float timeBetweenAttacks = 1f;
         [SerializeField] float weaponDamage = 20f;
+
+        //[SerializeField] GameObject weaponPrefab = null;
+        //[SerializeField] Transform handTransform = null;
+
         float timeSinceLastAttack = Mathf.Infinity;
 
         [Header("Scripts")]
@@ -21,11 +25,16 @@ namespace RPG.Combat
 
         bool isInRangeOfTarget;
 
-        void Start()
+        void Awake()
         {
             movementScript = GetComponent<Movement>();
             updateAnimatorScript = GetComponentInChildren<UpdateAnimator>();
             healthScriptOfAttacker = GetComponent<Health>();
+        }
+
+        void Start()
+        {
+
         }
 
         void Update()
@@ -34,6 +43,11 @@ namespace RPG.Combat
 
             UpdateMoveToAttack();
         }
+
+        //void EquipSword()
+        //{
+        //    Instantiate(weaponPrefab, handTransform);
+        //}
 
         public void StartAttackAction(GameObject combatTarget)
         {
@@ -64,7 +78,7 @@ namespace RPG.Combat
             }
             isInRangeOfTarget = Vector3.Distance(transform.position, healthScriptOfTarget.transform.position) < attackingRange;
             if (!isInRangeOfTarget) return;
-            movementScript.DisableNavMeshAgent();
+            movementScript.StopAttack();
         }
 
         void AttackBehaviour()
@@ -77,11 +91,11 @@ namespace RPG.Combat
             timeSinceLastAttack = 0;
         }
 
-        public void DisableNavMeshAgent()
+        public void StopAttack()
         {
             updateAnimatorScript.StopAttackIfInProcess();
             healthScriptOfTarget = null;
-            GetComponent<Movement>().DisableNavMeshAgent();
+            GetComponent<Movement>().StopAttack();
         }
 
         public Health GetSelectedTarget() => healthScriptOfTarget;

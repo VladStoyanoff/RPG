@@ -61,8 +61,8 @@ namespace RPG.Control
         void SuspiciousBehaviour()
         {
             timeSinceLastSeenPlayer += Time.deltaTime;
-            fighterScript.DisableNavMeshAgent();
-            movementScript.DisableNavMeshAgent();
+            fighterScript.StopAttack();
+            movementScript.StopAttack();
         }
 
         void PatrolBehaviour()

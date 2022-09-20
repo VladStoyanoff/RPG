@@ -33,7 +33,7 @@ namespace RPG.Move
             ActivateNavMeshAgent();
         }
 
-        public void DisableNavMeshAgent()
+        public void StopAttack()
         {
             if (!navMeshAgent.enabled) return;
             navMeshAgent.isStopped = true;
@@ -65,7 +65,7 @@ namespace RPG.Move
         public void RestoreState(object state)
         {
             MoverSaveData data = (MoverSaveData)state;
-            DisableNavMeshAgent();
+            StopAttack();
             transform.position = data.position.ToVector();
             transform.eulerAngles = data.rotation.ToVector();
             ActivateNavMeshAgent();
