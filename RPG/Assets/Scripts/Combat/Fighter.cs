@@ -12,6 +12,8 @@ namespace RPG.Combat
         [SerializeField] float timeBetweenAttacks = 1f;
         [SerializeField] float weaponDamage = 20f;
 
+        [SerializeField] AnimatorOverrideController weaponOverrideController;
+
         //[SerializeField] GameObject weaponPrefab = null;
         //[SerializeField] Transform handTransform = null;
 
@@ -44,10 +46,12 @@ namespace RPG.Combat
             UpdateMoveToAttack();
         }
 
-        //void EquipSword()
-        //{
-        //    Instantiate(weaponPrefab, handTransform);
-        //}
+        void EquipSword()
+        {
+            //Instantiate(weaponPrefab, handTransform);
+            var animator = GetComponentInChildren<Animator>();
+            animator.runtimeAnimatorController = weaponOverrideController;
+        }
 
         public void StartAttackAction(GameObject combatTarget)
         {
