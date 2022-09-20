@@ -8,11 +8,7 @@ namespace RPG.Combat
     public class Fighter : MonoBehaviour, IAction
     {
         [Header("Attack")]
-        [SerializeField] float attackingRange = 2f;
-        [SerializeField] float timeBetweenAttacks = 1f;
-        [SerializeField] float weaponDamage = 20f;
         [SerializeField] WeaponSO weapon;
-
         [SerializeField] Transform handTransform = null;
 
         float timeSinceLastAttack = Mathf.Infinity;
@@ -87,8 +83,8 @@ namespace RPG.Combat
         {
             if (!isInRangeOfTarget) return;
             transform.LookAt(healthScriptOfTarget.transform);
-            if (timeSinceLastAttack < timeBetweenAttacks) return;
-            healthScriptOfTarget.TakeDamage(GetWeaponDamage());
+            if (timeSinceLastAttack < weapon.GetTimeBetweenAttacks()) return;
+            healthScriptOfTarget.TakeDamage(weapon.GetWeaponDamage());
             updateAnimatorScript.AttackAnimation();
             timeSinceLastAttack = 0;
         }
@@ -101,6 +97,5 @@ namespace RPG.Combat
         }
 
         public Health GetSelectedTarget() => healthScriptOfTarget;
-        public float GetWeaponDamage() => weaponDamage;
     }
 }
