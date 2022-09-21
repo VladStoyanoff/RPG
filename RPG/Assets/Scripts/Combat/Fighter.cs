@@ -8,8 +8,10 @@ namespace RPG.Combat
     public class Fighter : MonoBehaviour, IAction
     {
         [Header("Attack")]
-        [SerializeField] WeaponSO weapon;
+        [SerializeField] WeaponSO defaultWeapon;
         [SerializeField] Transform handTransform = null;
+
+        WeaponSO currentWeapon;
 
         float timeSinceLastAttack = Mathf.Infinity;
 
@@ -30,7 +32,7 @@ namespace RPG.Combat
 
         void Start()
         {
-            SpawnWeapon();
+            EquipWeapon(defaultWeapon);
         }
 
         void Update()
@@ -40,9 +42,9 @@ namespace RPG.Combat
             UpdateMoveToAttack();
         }
 
-        void SpawnWeapon()
+        public void EquipWeapon(WeaponSO weapon)
         {
-            if (weapon == null) return;
+            currentWeapon = weapon;
             var animator = GetComponentInChildren<Animator>();
             weapon.Spawn(handTransform, animator);
         }
@@ -74,8 +76,8 @@ namespace RPG.Combat
             {
                 movementScript.MoveToTarget(healthScriptOfTarget.gameObject, 0.8f);
             }
-            var distanceToTarget = Vector3.Distance(transform.position, healthScriptOfTarget.transform.position);
-            isInRangeOfTarget = distanceToTarget < weapon.GetAttackingRange();
+            var distanceToEnemy = Vector3.Distance(transform.position, healthScriptOfTarget.transform.position);
+            isInRangeOfTarget = distanceToEnemy < currentWeapon.GetAttackingRange();
             if (!isInRangeOfTarget) return;
             movementScript.StopAttack();
         }
@@ -84,8 +86,8 @@ namespace RPG.Combat
         {
             if (!isInRangeOfTarget) return;
             transform.LookAt(healthScriptOfTarget.transform);
-            if (timeSinceLastAttack < weapon.GetTimeBetweenAttacks()) return;
-            healthScriptOfTarget.TakeDamage(weapon.GetWeaponDamage());
+            if (timeSinceLastAttack < currentWeapon.GetTimeBetweenAttacks()) return;
+            healthScriptOfTarget.TakeDamage(currentWeapon.GetWeaponDamage());
             updateAnimatorScript.AttackAnimation();
             timeSinceLastAttack = 0;
         }
