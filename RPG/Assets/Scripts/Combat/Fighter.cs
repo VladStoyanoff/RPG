@@ -74,7 +74,8 @@ namespace RPG.Combat
             {
                 movementScript.MoveToTarget(healthScriptOfTarget.gameObject, 0.8f);
             }
-            isInRangeOfTarget = Vector3.Distance(transform.position, healthScriptOfTarget.transform.position) < attackingRange;
+            var distanceToTarget = Vector3.Distance(transform.position, healthScriptOfTarget.transform.position);
+            isInRangeOfTarget = distanceToTarget < weapon.GetAttackingRange();
             if (!isInRangeOfTarget) return;
             movementScript.StopAttack();
         }

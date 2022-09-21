@@ -16,7 +16,8 @@ MonoBehaviour:
   suspicionTime: 5
   patrolPath: {fileID: 0}
   guardingPositionWidth: 1
-  patrolSpeedFraction: 0.2
+  patrollingSpeedFraction: 0.4
+  timeOnGuardingPosition: 3
 --- !u!1001 &5564203463119207140
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -594,6 +595,12 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 7797399367813812525, guid: 1ad5b1dfb8ebae542adc30e9ced1276a,
+        type: 3}
+      propertyPath: weapon
+      value: 
+      objectReference: {fileID: 11400000, guid: 6be7ab7f08d9d8f458d8044b1b1657a5,
+        type: 2}
     - target: {fileID: 7941250432741178136, guid: 1ad5b1dfb8ebae542adc30e9ced1276a,
         type: 3}
       propertyPath: m_Size.x
