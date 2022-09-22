@@ -10,12 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a9a7639ab91fa5d43a6d234b616cf557, type: 3}
-  m_Name: Sword
-  m_EditorClassIdentifier: Assembly-CSharp:RPG.Combat:Weapon
-  weaponOverrideController: {fileID: 22100000, guid: 3c4dc464062feee47bd970832f328703,
-    type: 2}
-  weaponPrefab: {fileID: 4771143448071152095, guid: 43402bed12ab91e43b6d5bfd247363bd,
-    type: 3}
+  m_Name: Bow
+  m_EditorClassIdentifier: 
+  weaponOverrideController: {fileID: 0}
+  weaponPrefab: {fileID: 0}
   attackingRange: 2
-  timeBetweenAttacks: 2
+  timeBetweenAttacks: 1
   weaponDamage: 20
+  isRightHanded: 1

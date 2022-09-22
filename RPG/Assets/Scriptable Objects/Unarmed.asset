@@ -16,4 +16,4 @@ MonoBehaviour:
   weaponPrefab: {fileID: 0}
   attackingRange: 2
   timeBetweenAttacks: 1
-  weaponDamage: 20
+  weaponDamage: 5

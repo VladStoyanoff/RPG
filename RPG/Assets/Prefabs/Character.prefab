@@ -130,7 +130,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultWeapon: {fileID: 0}
-  handTransform: {fileID: 1403097228637186612}
+  rightHandTransform: {fileID: 1403097228637186612}
+  leftHandTransform: {fileID: 1403097228637112924}
 --- !u!114 &3500588176227227104
 MonoBehaviour:
   m_ObjectHideFlags: 0

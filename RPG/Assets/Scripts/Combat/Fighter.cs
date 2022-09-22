@@ -9,7 +9,8 @@ namespace RPG.Combat
     {
         [Header("Attack")]
         [SerializeField] WeaponSO defaultWeapon;
-        [SerializeField] Transform handTransform = null;
+        [SerializeField] Transform rightHandTransform;
+        [SerializeField] Transform leftHandTransform;
 
         WeaponSO currentWeapon;
 
@@ -46,7 +47,7 @@ namespace RPG.Combat
         {
             currentWeapon = weapon;
             var animator = GetComponentInChildren<Animator>();
-            weapon.Spawn(handTransform, animator);
+            weapon.Spawn(rightHandTransform, leftHandTransform, animator);
         }
 
         public void StartAttackAction(GameObject combatTarget)
